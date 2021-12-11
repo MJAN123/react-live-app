@@ -1,0 +1,22 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    font-size: 14px;
+    line-height: normal;
+    font-family: 'Source Sans Pro', sans-serif;
+    &.dark-mode{
+        background-color: #222;
+        color: #fff;
+        }
+    &.light-mode{
+        background-color: #fff;
+        color: #222;
+    }
+}
+
+svg {
+    cursor: pointer;
+}
