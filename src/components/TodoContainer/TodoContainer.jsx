@@ -2,58 +2,30 @@ import React, {useState} from 'react'
 import TodoAdd from './TodoAdd';
 import TodoList from './TodoList';
 const Todo = () => {
-    const [todos, setTodos] = useState([]);
+    const [todoList, setTodoList] = useState([]);
 
-    /**
-     * Handle Adding todo
-     * add todo to list
-     * @param newTodo
-     */
-    const handleAddingTodo = (newTodo) =>{
-        setTodos([...todos, newTodo])
+    const addTodo = (todo) =>{
+        setTodoList([...todoList, todo])
     }
-
-    /**
-     * Handle deleting todo
-     * remove todo to list
-     * @param id
-     */
-    const handleDeleteTodo = (id) =>{
-        setTodos(todos.filter((todo => todo.id !== id)))
+    const deleteTodo = (id) =>{
+        setTodoList(todoList.filter((item => item.id !==id)))
     }
-
-
-    /**
-     * Handle Edit todo
-     * enable edit state of todo
-     * @param id
-     */
-    const handleEditTodo = (data) =>{
-        setTodos(todos.map((todo)=> {
-            return todo.id === data.id ? data: todo
+    const editTodo = (todo) =>{
+        setTodoList(todoList.map((item)=> todo.id === item.id ? todo:item))
+    }
+    const completeTodo = (id, status) =>{
+        setTodoList(todoList.map((item)=>{
+            return id === item.id ? {...item, isComplete:true}:item;
         }))
     }
-
-    /**
-     * Handle Complete todo
-     * enable Complete state of todo
-     * @param id
-     */
-    const handleCompleteTodo = (id, status) =>{
-        setTodos(todos.map((todo)=> {
-            return todo.id === id ? {...todo, isComplete:status}: todo
-        }))
-    }
-    
     return (
         <div className='todo-container'>
             <div className="add-section">
-                <TodoAdd addingTodo={handleAddingTodo}/>
+                <TodoAdd addTodo ={addTodo}/>
             </div>
             <div className="list-section">
-            {todos.length>0 && todos.map((todo)=>{
-                return<TodoList key ={todo.id} todo={todo} editTodo = {handleEditTodo} 
-                deleteTodo = {handleDeleteTodo} completeTodo = {handleCompleteTodo}/>
+            {todoList.length>0 && todoList.map((item)=>{
+                return  <TodoList key={item.id} todo={item} deleteTodo={deleteTodo} editTodo={editTodo} completeTodo={completeTodo}/>
             })
             }
             </div>
